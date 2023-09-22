@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Upload a Video</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta description="Machine Learning Engineer Peter McMaster Portfolio and Personal Website.">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;600&family=Open+Sans:wght@300;400;600&family=Roboto:wght@300;400;600&display=swap">
+        <!-- fonts: Montserrat 100 200 400 600, Open Sans 300 400 600, Roboto 300 400 600 -->
+        
+        <!-- for testing styles -->
+        <!-- <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/upload.css"> -->
+
+        <!-- for production -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/upload.css') }}">
+
+    </head>
+
+    <body>
+        <div class="mainContainer">
+            <div class="subContainer">
+                <!-- header -->
+                <div class="mainTitle">
+                    <h1>EyeSpy</h1>
+                </div>
+                <hr class="divider">
+                <!-- input form -->
+                <form method="POST" enctype="multipart/form-data" action="/upload">
+                    <!-- dropZone -->
+                    <h3>
+                        Upload a video (.mp4 or .mov)
+                    </h3>
+                    <div id="dropZone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);">
+                        <img src="{{ url_for('static', filename='images/upload.svg') }}" alt="upload icon">Drag & Drop files or click here
+                    </div>
+                    <input type="file" id="video_file" name="video_file" style="display: none;">
+                    <!-- preview file in dropZone after drop -->
+                    <div id="thumbnailPreview" style="display: none;">
+                        <video width="320" height="240" controls style="display: none;">
+                            <source id="videoSource" src="" type="video/mp4">
+                            Your browser does not support the video tag.!
+                        </video>
+                        <div id="fileName"></div>
+                    </div>
+                    <!-- YouTube URL -->                    
+                    <h3>
+                        Or enter a YouTube URL
+                    </h3>
+                    <input type="text" id="urlInputField" class="urlInputField" name="video_url" placeholder="YouTube URL...">
+                    <div id="additionalOptions" class="additionalOptions">
+                        <button type="button" id="toggleOptions">
+                            <u>Additional Options</u>
+                        </button>
+                    </div>
+                    <!-- Additional Options -->
+                    <div id="optionsContainer" class="optionsContainer" style="display: none;">
+                        <div class="selectDetections">
+                            <h4 id="selectDetectionsHeader">Detecting:</h4>
+                            <label>
+                                <input type="checkbox" name="detections" value="People" checked> People
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="detections" value="Vehicles" checked> Vehicles
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="detections" value="Traffic_Signs"> Traffic Signs
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="detections" value="Animals"> Animals
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="detections" value="Sports_Equipment"> Sports Equipment
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="options" value="Food"> Food
+                            </label>
+                            <br>
+                            <label>
+                                <input type="checkbox" name="detections" value="Household_Items"> Household Items
+                            </label>
+                            <br>
+                        </div>
+                        <div class="selectModel">
+                            <h4 id="selectModelHeader">Model:</h4>
+                            <select name="singleSelectModel" id="singleSelectModel">
+                                <option value="nano">nano</option>
+                                <option value="medium">medium</option>
+                                <option value="XL">XL</option>
+                                <option value="custom">custom</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="getResultsButton"> 
+                        <button type="submit">Get Results</button>
+                    </div>
+                    <!-- Messages to User -->
+                    <div id="flashMessages" class="flashMessages">
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <ul class=flashes>
+                                    {% for message in messages %}
+                                        <div class="flash-message">
+                                            <img src="{{ url_for('static', filename='images/error.svg') }}">
+                                            <span>{{ message }}</span>
+                                            <button type="button" class="closeFlashMessage">&times;</button>
+                                        </div>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    <!-- handles show/hide additional options, handles drag n drop -->
+
+    <!-- local hosting with Live Server -->
+    <!-- <script src="scripts/dismissMessage.js"></script>
+    <script src="scripts/optionsToggle.js"></script>
+    <script src="scripts/dropZone.js"></script> -->
+
+    <!-- when app is run end-to-end via Docker -->
+    <script src="{{ url_for('static', filename='scripts/dismissMessage.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/optionsToggle.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/dropZone.js') }}"></script>
+
+        <!-- call /delete_files -->
+        <script src="{{ url_for('static', filename='scripts/deleteLocalFiles.js') }}"></script>
+
+    </body>
+
+</html>

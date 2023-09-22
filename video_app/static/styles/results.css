@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.carousel-inner .carousel-item img {
+    max-width: 95%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
+}
+
+.buffer {
+    height: 40px;
+}
+
+.tryAnother {
+    padding: 0 0 50px 0;
+}
+
+#makeButton {
+    cursor: pointer;
+    padding: 10px 20px;
+    background: #c7592a;  
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    transition: background 0.3s;
+}

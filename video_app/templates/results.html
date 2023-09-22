@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Video Analytics</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta description="Machine Learning Engineer Peter McMaster Portfolio and Personal Website.">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;600&family=Open+Sans:wght@300;400;600&family=Roboto:wght@300;400;600&display=swap">
+        <!-- fonts: Montserrat 100 200 400 600, Open Sans 300 400 600, Roboto 300 400 600 -->
+        
+        <!-- for testing styles -->
+        <!-- <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/results.css"> -->
+
+        <!-- for production -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/results.css') }}">
+                
+        <!-- jQuery datatables -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+        <!-- Carousel -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <div class="mainContainer">
+            <div class="subContainer">
+                <div class="mainTitle">
+                    <h1>EyeSpy</h1>
+                </div>
+                <hr class="divider">
+                <!-- datatable -->
+                <h3>Detections</h3>
+                <!-- download csv -->
+                <a href="{{ url_for('main.download_csv') }}">Download CSV</a>
+                <!-- table -->
+                <div id="detectionsDF">
+                    <div style="overflow: auto;">
+                        {{ table_html | safe }}
+                    </div>
+                </div>
+                {% if not youtube %}
+                    <!-- Carousel -->
+                    <h3>Snapshots</h3>
+                    <a href="{{ url_for('main.download_images') }}">Download Images</a>
+                    <div id="detectionCarousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for image_name, image_url in image_info %}
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <img src="{{ image_url }}" class="d-block w-100" alt="{{ image_name }}">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <p>{{ image_name }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <a class="carousel-control-prev" href="#detectionCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#detectionCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <div class="buffer"></div>
+                {% else %}
+                    <h3>Snapshots are only available for local file uploads.</h3>
+                {% endif %}
+                <div class="tryAnother">
+                    <a id="makeButton" href="/">Try Another</a>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery datatable -->
+        <script>
+            $(document).ready( function () {
+                $('.dataframe').DataTable({
+                    "displayLength": 5,
+                    "paging": false,
+                    "scrollY": "200px",  /* Assume each row is 40px height, so for 5 rows */
+                    "scrollCollapse": true
+                });
+            });
+        </script>
+    </body>
+</html>

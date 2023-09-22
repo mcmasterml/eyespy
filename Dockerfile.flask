@@ -1,0 +1,43 @@
+# Use an official Python runtime as the base image
+FROM python:3.10-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Install build-essential, gcc, git, and nginx
+RUN apt-get update 
+RUN apt-get install -y build-essential git
+RUN apt-get install -y gcc python3-dev
+RUN apt-get install -y nginx
+
+# libraries needed for cv2
+RUN apt-get update && apt-get install -y \
+    libgl1-mesa-dev \
+    libgl1-mesa-glx \
+    libglew-dev \
+    libglfw3 \
+    libglfw3-dev \
+    libglib2.0-0
+
+# library needed for python-magic (MIME type validation)
+RUN apt-get install -y libmagic1
+
+# Copy the Flask application code (including requirements.txt) to the container
+COPY . .
+
+# Install the dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# `pip install lap` doesn't work on this VM, so we have to build it from source
+RUN git clone https://github.com/gatagat/lap.git
+RUN cd lap && python setup.py build && python setup.py install
+
+# Expose the port the Flask app runs on
+# For EC2
+# EXPOSE 80
+
+# for local
+EXPOSE 5000
+
+# Set the command to run the Flask app
+CMD ["gunicorn", "run:app", "-b", "0.0.0.0:5000", "--workers", "4", "--threads", "4", "--log-level", "info"]

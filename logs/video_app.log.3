@@ -1,0 +1,97 @@
+2023-09-19 11:32:10,803 ERROR: Exception on /processing [GET] [in /Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/p/Documents/Github/surveil/video_app/routes/main_routes.py", line 177, in processing
+    return render_template('results.html', youtube=YOUTUBE, image_info=image_info, table_html=table_html)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/templating.py", line 150, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/jinja2/environment.py", line 1081, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/jinja2/environment.py", line 1010, in get_template
+    return self._load_template(name, globals)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/jinja2/environment.py", line 969, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/jinja2/environment.py", line 768, in compile
+    self.handle_exception(source=source_hint)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/jinja2/environment.py", line 936, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/Users/p/Documents/Github/surveil/video_app/templates/results.html", line 78, in template
+    <script src="{{ url_for('static', filename='scripts/deleteLocalFiles.js') }}"></script>
+jinja2.exceptions.TemplateSyntaxError: Unexpected end of template. Jinja was looking for the following tags: 'endif'. The innermost block that needs to be closed is 'if'.
+2023-09-19 11:32:52,661 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:40]
+2023-09-19 11:33:00,191 INFO: Processing route was hit! [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:120]
+2023-09-19 11:33:00,207 INFO: Video processing has begun [in /Users/p/Documents/Github/surveil/video_app/utils.py:338]
+2023-09-19 11:33:08,372 INFO: Video processing has finished [in /Users/p/Documents/Github/surveil/video_app/utils.py:347]
+2023-09-19 11:33:08,372 INFO: csv successfully written locally [in /Users/p/Documents/Github/surveil/video_app/utils.py:369]
+2023-09-19 11:33:08,641 INFO: Class Detections method write_images() has begun [in /Users/p/Documents/Github/surveil/video_app/utils.py:355]
+2023-09-19 11:33:09,266 INFO: images successfully written locally [in /Users/p/Documents/Github/surveil/video_app/utils.py:359]
+2023-09-19 11:33:11,944 INFO: images successfully written to s3 bucket [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:168]
+2023-09-19 11:33:17,133 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/images/detection5_person.jpg [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:199]
+2023-09-19 11:33:17,133 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/images/detection2_car.jpg [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:199]
+2023-09-19 11:33:17,133 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/images/detection6_person.jpg [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:199]
+2023-09-19 11:33:17,133 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/images/detection1_person.jpg [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:199]
+2023-09-19 11:33:17,134 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/images/detection3_train.jpg [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:199]
+2023-09-19 11:33:17,134 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/images/detection4_person.jpg [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:199]
+2023-09-19 11:33:17,134 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/csvs/data_20230919_113308.csv [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:199]
+2023-09-19 11:33:17,134 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/csvs/data_20230919_113207.csv [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:199]
+2023-09-19 11:33:17,135 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/videos/VIRAT_000001-0210-0220.mp4 [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:199]
+2023-09-19 11:40:37,284 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:40]
+2023-09-19 11:41:04,121 INFO: Processing route was hit! [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:120]
+2023-09-19 11:41:04,141 INFO: Video processing has begun [in /Users/p/Documents/Github/surveil/video_app/utils.py:351]
+2023-09-19 11:46:11,832 ERROR: Exception on /processing [GET] [in /Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/p/Documents/Github/surveil/video_app/routes/main_routes.py", line 139, in processing
+    detectionsInVideo.process_video(model, VIDEO, CLASSES, YOUTUBE)
+  File "/Users/p/Documents/Github/surveil/video_app/utils.py", line 354, in process_video
+    self.df = get_df(self.results, VIDEO, YOUTUBE)
+  File "/Users/p/Documents/Github/surveil/video_app/utils.py", line 123, in get_df
+    video_id = extract_video_id(VIDEO)  # VIDEO is YouTube URL
+  File "/Users/p/Documents/Github/surveil/video_app/utils.py", line 51, in extract_video_id
+    match = re.search(
+NameError: name 're' is not defined
+2023-09-19 11:47:13,277 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:40]
+2023-09-19 11:47:17,868 INFO: Processing route was hit! [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:120]
+2023-09-19 11:47:17,889 INFO: Video processing has begun [in /Users/p/Documents/Github/surveil/video_app/utils.py:352]
+2023-09-19 11:51:15,984 ERROR: Error getting video duration: name 'requests' is not defined [in /Users/p/Documents/Github/surveil/video_app/utils.py:62]
+2023-09-19 11:51:15,985 ERROR: Exception on /processing [GET] [in /Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/p/Documents/Github/surveil/video_app/routes/main_routes.py", line 139, in processing
+    detectionsInVideo.process_video(model, VIDEO, CLASSES, YOUTUBE)
+  File "/Users/p/Documents/Github/surveil/video_app/utils.py", line 355, in process_video
+    self.df = get_df(self.results, VIDEO, YOUTUBE)
+  File "/Users/p/Documents/Github/surveil/video_app/utils.py", line 126, in get_df
+    duration = isodate.parse_duration(duration_).total_seconds()
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/isodate/isoduration.py", line 86, in parse_duration
+    raise TypeError("Expecting a string %r" % datestring)
+TypeError: Expecting a string None
+2023-09-19 12:13:25,678 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:40]
+2023-09-19 12:15:21,222 INFO: Processing route was hit! [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:120]
+2023-09-19 12:15:21,240 INFO: Video processing has begun [in /Users/p/Documents/Github/surveil/video_app/utils.py:353]
+2023-09-19 12:15:39,399 INFO: Video processing has finished [in /Users/p/Documents/Github/surveil/video_app/utils.py:362]
+2023-09-19 12:15:39,400 INFO: csv successfully written locally [in /Users/p/Documents/Github/surveil/video_app/utils.py:384]
+2023-09-19 12:15:44,759 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/csvs/data_20230919_121539.csv [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:199]

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Loading...</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta description="Machine Learning Engineer Peter McMaster Portfolio and Personal Website.">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;600&family=Open+Sans:wght@300;400;600&family=Roboto:wght@300;400;600&display=swap">
+        <!-- fonts: Montserrat 100 200 400 600, Open Sans 300 400 600, Roboto 300 400 600 -->
+        
+        <!-- for testing styles -->
+        <!-- <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/loading.css"> -->
+
+        <!-- for production -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/loading.css') }}">
+
+    </head>
+
+    <body>
+        <div class="mainContainer">
+            <div class="subContainer">
+                <div class="mainTitle">
+                    <h1>EyeSpy</h1>
+                </div>
+                <hr class="divider">
+                <!-- loading animation -->
+                <div class="waviy">
+                    <span style="--i:1">P</span>
+                    <span style="--i:2">r</span>
+                    <span style="--i:3">o</span>
+                    <span style="--i:4">c</span>
+                    <span style="--i:5">e</span>
+                    <span style="--i:6">s</span>
+                    <span style="--i:7">s</span>
+                    <span style="--i:8">i</span>
+                    <span style="--i:9">n</span>
+                    <span style="--i:10">g</span>
+                    <span style="--i:11">.</span>
+                    <span style="--i:12">.</span>
+                    <span style="--i:13">.</span>
+                </div>
+                <h4>Your video is processing. Results will display when complete (~1s processing / 1s video)</h3>
+            </div>
+        </div>
+        <!-- invisible link to /processing -->
+        <a href="/processing" id="processingLink" style="display: none;">Processing...</a>
+        <!-- handles clicking invisible #processingLink -->
+        <script src="{{ url_for('static', filename='scripts/processingLink.js') }}"></script>
+    </body>
+</html>

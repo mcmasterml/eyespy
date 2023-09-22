@@ -1,0 +1,82 @@
+2023-09-13 15:03:47,306 INFO: Processing route was hit! [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:102]
+2023-09-13 15:03:47,311 INFO: Video processing has begun [in /Users/p/Documents/Github/surveil/video_app/utils.py:236]
+2023-09-13 15:03:47,313 ERROR: Exception on /processing [GET] [in /Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/p/Documents/Github/surveil/video_app/routes/main_routes.py", line 115, in processing
+    detectionsInVideo.process_video(model, VIDEO)
+  File "/Users/p/Documents/Github/surveil/video_app/utils.py", line 237, in process_video
+    self.results = list(model.track(source=VIDEO_FILE, conf=0.5, iou=0.5, classes=[
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 35, in generator_context
+    response = gen.send(None)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/ultralytics/engine/predictor.py", line 227, in stream_inference
+    self.setup_source(source if source is not None else self.args.source)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/ultralytics/engine/predictor.py", line 208, in setup_source
+    self.dataset = load_inference_source(source=source, imgsz=self.imgsz, vid_stride=self.args.vid_stride)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/ultralytics/data/build.py", line 165, in load_inference_source
+    dataset = LoadImages(source, imgsz=imgsz, vid_stride=vid_stride)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/ultralytics/data/loaders.py", line 179, in __init__
+    raise FileNotFoundError(f'{p} does not exist')
+FileNotFoundError: /Users/p/Documents/Github/surveil/temp_data/videos/VIRAT_000001-0210-0220.mp4 does not exist
+2023-09-13 15:03:58,261 INFO: Processing route was hit! [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:102]
+2023-09-13 15:03:58,261 INFO: Video processing has begun [in /Users/p/Documents/Github/surveil/video_app/utils.py:236]
+2023-09-13 15:03:58,265 INFO: Video processing has finished [in /Users/p/Documents/Github/surveil/video_app/utils.py:248]
+2023-09-13 15:03:58,268 INFO: Class Detections method write_images() has begun [in /Users/p/Documents/Github/surveil/video_app/utils.py:256]
+2023-09-13 15:03:58,269 ERROR: Unable to open video file: /Users/p/Documents/Github/surveil/temp_data/videos/VIRAT_000001-0210-0220.mp4 [in /Users/p/Documents/Github/surveil/video_app/utils.py:112]
+2023-09-13 15:03:58,269 INFO: images successfully written locally [in /Users/p/Documents/Github/surveil/video_app/utils.py:259]
+2023-09-13 15:03:58,269 INFO: csv successfully written locally [in /Users/p/Documents/Github/surveil/video_app/utils.py:269]
+2023-09-13 15:03:58,392 INFO: images successfully written to s3 bucket [in /Users/p/Documents/Github/surveil/video_app/utils.py:279]
+2023-09-13 15:03:58,393 INFO: csv successfully written to s3 bucket [in /Users/p/Documents/Github/surveil/video_app/utils.py:286]
+2023-09-13 15:03:58,492 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/csvs/data_20230913_150358.csv [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:166]
+2023-09-13 15:03:58,493 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/videos/VIRAT_000001-0210-0220.mp4 [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:166]
+2023-09-13 15:17:21,056 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 15:18:00,243 INFO: Processing route was hit! [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:93]
+2023-09-13 15:18:00,243 INFO: Video processing has begun [in /Users/p/Documents/Github/surveil/video_app/utils.py:236]
+2023-09-13 15:18:08,218 INFO: Video processing has finished [in /Users/p/Documents/Github/surveil/video_app/utils.py:248]
+2023-09-13 15:18:08,218 INFO: Class Detections method write_images() has begun [in /Users/p/Documents/Github/surveil/video_app/utils.py:256]
+2023-09-13 15:18:08,815 INFO: images successfully written locally [in /Users/p/Documents/Github/surveil/video_app/utils.py:259]
+2023-09-13 15:18:08,815 INFO: csv successfully written locally [in /Users/p/Documents/Github/surveil/video_app/utils.py:269]
+2023-09-13 15:18:09,200 INFO: images successfully written to s3 bucket [in /Users/p/Documents/Github/surveil/video_app/utils.py:279]
+2023-09-13 15:18:12,012 INFO: csv successfully written to s3 bucket [in /Users/p/Documents/Github/surveil/video_app/utils.py:286]
+2023-09-13 15:18:12,213 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/images/detection5_Person.jpg [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:157]
+2023-09-13 15:18:12,213 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/images/detection2_Car.jpg [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:157]
+2023-09-13 15:18:12,213 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/images/detection3_Person.jpg [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:157]
+2023-09-13 15:18:12,214 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/images/detection1_Person.jpg [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:157]
+2023-09-13 15:18:12,214 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/images/detection4_Person.jpg [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:157]
+2023-09-13 15:18:12,214 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/csvs/data_20230913_151808.csv [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:157]
+2023-09-13 15:18:12,214 INFO: Deleted file /Users/p/Documents/Github/surveil/temp_data/videos/VIRAT_000001-0210-0220.mp4 [in /Users/p/Documents/Github/surveil/video_app/routes/main_routes.py:157]
+2023-09-13 21:21:39,474 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 21:39:23,114 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 21:41:34,067 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 21:46:12,607 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 21:47:28,119 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 21:50:14,295 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 21:53:18,492 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 21:57:59,550 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 22:00:25,459 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 22:01:33,320 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 22:02:33,677 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 22:03:39,745 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 22:05:58,169 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-13 22:51:42,998 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:42]
+2023-09-15 15:23:49,966 INFO: Video App startup [in /Users/p/Documents/Github/surveil/video_app/__init__.py:41]
+2023-09-15 15:28:24,413 ERROR: Exception on /upload [POST] [in /Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py:1414]
+Traceback (most recent call last):
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 2190, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1486, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1484, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/p/miniconda3/envs/video-metrics/lib/python3.10/site-packages/flask/app.py", line 1469, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/Users/p/Documents/Github/surveil/video_app/routes/main_routes.py", line 51, in upload
+    if not selected_detections:
+UnboundLocalError: local variable 'selected_detections' referenced before assignment
