@@ -1,0 +1,59 @@
+# .gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+env
+venv
+ENV
+env.bak
+venv.bak
+*.venv
+*.env
+pip-log.txt
+pip-delete-this-directory.txt
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Machine Learning: Various ML tools generate these
+*.ckpt
+*.tfevents
+*.model
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+*.dockerfile
+.docker/
+
+# AWS
+.aws/
+.aws/*
+
+# SSL Certificates
+certs/
+certs/*
+
+# Miscellaneous
+*.log*
+*.csv
+*.json
+*.sqlite
+.DS_Store
+.vscode/
+
+# Media
+*.mp4
+*.jpg
+*.png
+*.jpeg
+*.gif
+
+# model weights
+*.pt
+weights/
