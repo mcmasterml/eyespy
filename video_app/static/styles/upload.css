@@ -27,6 +27,7 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-evenly;
 }
 
 #thumbnailPreview {
@@ -51,6 +52,8 @@ form {
 #optionsContainer {
     display: none;
     flex-direction: row;
+    width: 100%;
+    flex: 1;
 }
 
 .additionalOptions button {
