@@ -57,3 +57,8 @@ certs/*
 # model weights
 *.pt
 weights/
+
+# logs
+logs/
+*.log
+*.log.*
