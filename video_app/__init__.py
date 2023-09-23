@@ -29,7 +29,10 @@ def create_app(config_name='production'):
     # Set up logging
     if not app.debug:
         if not os.path.exists('logs'):
-            os.mkdir('logs')
+            try:
+                os.mkdir('logs')
+            except FileExistsError:
+                pass  # Directory already exists
         file_handler = RotatingFileHandler(
             'logs/video_app.log', maxBytes=10240, backupCount=20)
         file_handler.setFormatter(logging.Formatter(
