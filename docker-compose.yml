@@ -17,10 +17,11 @@ services:
       context: .
       dockerfile: Dockerfile.nginx
     ports:
-      - "8000:80"
-      - "8443:443" # Expose port 443 for HTTPS traffic
+      - "80:80"
+      - "443:443"
     depends_on:
       - flask
 
 volumes:
   ssl-certs:
+    external: true
