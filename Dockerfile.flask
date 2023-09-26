@@ -4,7 +4,7 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
-# Install build-essential, gcc, git, and nginx
+# Needed for all. build-essential, gcc, git, and nginx
 RUN apt-get update 
 RUN apt-get install -y build-essential git
 RUN apt-get install -y gcc python3-dev
