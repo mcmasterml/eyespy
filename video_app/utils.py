@@ -241,8 +241,8 @@ def get_middle_frames(df, track_ids):
                                 == track_id, 'frame_num'].max()
         middle_frame_num = int((last_frame_num + first_frame_num) // 2)
 
-        sought_frame = (middle_frame_num - 4)
-        while df.loc[(df['track_id'] == track_id) & (df['frame_num'] == sought_frame)].empty:
+        sought_frame = (middle_frame_num - 1)
+        while (df.loc[(df['track_id'] == track_id) & (df['frame_num'] == sought_frame)].empty):
             sought_frame += 1
 
         middle_frames[track_id] = sought_frame
@@ -291,15 +291,14 @@ def get_images(df, labels, VIDEO, middle_frames, IMAGE_FOLDER):
                     this_label = labels[this_class_id]
 
                     # Draw bounding box, label, and confidence
-                    cv2.rectangle(frame, (x1, y1),
-                                  (x2, y2), (200, 0, 200), 2)
-                    cv2.putText(frame, this_label + " " + str(this_confidence),
-                                (x1, y2 - 15), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (155, 20, 155), 2)
+                    frame_copy = frame.copy()
+                    cv2.rectangle(frame_copy, (x1, y1),
+                                  (x2, y2), (255, 255, 255), 2)
 
                     # Write Image
                     image_path = os.path.join(
                         IMAGE_FOLDER, f"detection{int(track_id)}_{this_label}.jpg")
-                    cv2.imwrite(image_path, frame)
+                    cv2.imwrite(image_path, frame_copy)
 
         video.release()
         cv2.destroyAllWindows()
