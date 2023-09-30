@@ -17,6 +17,14 @@ import requests
 logger = logging.getLogger('video_app')
 
 
+def download_video_from_youtube(video_url):
+    """
+    Download a video from YouTube using pytube.
+    """
+    # TODO: implement
+
+    return video_filename
+
 def is_allowed_video(file: FileStorage) -> bool:
     """
     Check if the uploaded file is a valid video based on its MIME type.
@@ -372,7 +380,7 @@ class Detections:
         try:
             logger.info('Video processing has begun')
             self.results = list(model.track(source=VIDEO, conf=0.5, iou=0.5,
-                                classes=CLASSES, tracker="bytetrack.yaml"))
+                                classes=CLASSES, stream=True, tracker="bytetrack.yaml"))
             self.df = get_df(self.results, VIDEO, YOUTUBE)
             self.labels = model.names
             self.summary_df = get_summary_df(self.df, self.labels)

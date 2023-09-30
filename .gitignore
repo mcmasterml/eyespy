@@ -47,6 +47,8 @@ certs/*
 *.sqlite
 .DS_Store
 .vscode/
+temp_data/
+*temp_data/*
 
 # Media
 *.mp4

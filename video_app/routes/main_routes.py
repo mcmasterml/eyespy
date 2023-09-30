@@ -112,10 +112,15 @@ def upload():
             session['VIDEO_SOURCE'] = video_file_path
 
         # Case: YouTube URL
+        logger.info(f"video_url: {video_url}")
         if not uploaded_file and video_url:
+            # String begins with https://www.youtube.com/watch?v= or https://youtu.be/
             if not video_url.startswith('https://www.youtube.com/watch?v='):
                 raise BadRequest(
-                    'YouTube URL is invalid. Must begin with https://www.youtube.com/watch?v=')
+                    'YouTube URL is invalid. Must begin with "https://www.youtube.com/watch?v=" or "https://youtu.be/"')
+            elif not video_url.startswith('https://youtu.be/'):
+                raise BadRequest(
+                    'YouTube URL is invalid. Must begin with "https://www.youtube.com/watch?v=" or "https://youtu.be/"')                
             # Check video length, limit 10 minutes
             video_id = extract_video_id(video_url)
             API_KEY = os.environ.get('YOUTUBE_API_KEY')
@@ -125,9 +130,16 @@ def upload():
             if int(duration) > 600:
                 raise BadRequest(
                     'YouTube video is longer than the 10-minute limit. Please provide a shorter video.')
+            # download the video locally with pytube
+            downloaded_video = download_video_from_youtube(video_url)
+            # Save file locally
+            filename = secure_filename(downloaded_video.filename)
+            VIDEO_FOLDER = current_app.config['VIDEO_FOLDER']
+            video_file_path = os.path.join(VIDEO_FOLDER, filename)
+            downloaded_video.save(video_file_path)            
             # Save YouTube URL in session
             session['YOUTUBE'] = True
-            session['VIDEO_SOURCE'] = video_url
+            session['VIDEO_SOURCE'] = video_file_path
 
         return render_template('loading.html')
 
@@ -177,6 +189,10 @@ def processing():
         # Only serve images if not YouTube
         image_info = None
 
+        # TODO: if youtube, download file locally with pytube first
+
+
+        # TODO: make sure this works for all cases, not just not YouTube
         # If local file (not YouTube), write and serve images
         if not YOUTUBE:
             # Write images locally
