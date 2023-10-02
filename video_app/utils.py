@@ -8,20 +8,23 @@ from botocore.exceptions import ClientError
 import logging
 import datetime
 from werkzeug.datastructures import FileStorage
+from werkzeug.utils import secure_filename
 import magic
 from dotenv import load_dotenv
 import isodate
 import re
 import requests
+from pytube import YouTube
 
 logger = logging.getLogger('video_app')
 
 
-def download_video_from_youtube(video_url):
+def download_video_from_youtube(url: str, output_path) -> str:
     """
-    Download a video from YouTube using pytube.
+    Download a video from YouTube using pytube
     """
-    # TODO: implement
+    video_filename = YouTube(url).streams.filter(res='360p', file_extension='mp4',
+                                    type='video', progressive='False').first().download(output_path=output_path)
 
     return video_filename
 

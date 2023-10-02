@@ -6,7 +6,7 @@ from werkzeug.exceptions import BadRequest
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
 
-from video_app.utils import Detections, is_allowed_video, has_allowed_extension, upload_to_s3, extract_video_id, get_video_duration
+from video_app.utils import Detections, is_allowed_video, has_allowed_extension, upload_to_s3, extract_video_id, get_video_duration, download_video_from_youtube
 from video_app.models import load_model
 
 from io import BytesIO
@@ -31,11 +31,11 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def home():
-    """ 
-    Home route, renders the upload form, 
-    upload.html calls /delete_files to cleanup local files
-    """
-    logger.info("Home route was hit!")
+    ''' 
+    renders the upload form at upload.html, 
+    deletes local files in `temp_data` as upload.html calls /delete_files
+    '''
+    logger.info('"/" route was hit')
     return render_template('upload.html')
 
 
@@ -115,12 +115,9 @@ def upload():
         logger.info(f"video_url: {video_url}")
         if not uploaded_file and video_url:
             # String begins with https://www.youtube.com/watch?v= or https://youtu.be/
-            if not video_url.startswith('https://www.youtube.com/watch?v='):
+            if not (video_url.startswith('https://www.youtube.com/watch?v=') or video_url.startswith('https://youtu.be/')):
                 raise BadRequest(
-                    'YouTube URL is invalid. Must begin with "https://www.youtube.com/watch?v=" or "https://youtu.be/"')
-            elif not video_url.startswith('https://youtu.be/'):
-                raise BadRequest(
-                    'YouTube URL is invalid. Must begin with "https://www.youtube.com/watch?v=" or "https://youtu.be/"')                
+                    'YouTube URL is invalid. Must begin with "https://www.youtube.com/watch?v=" or "https://youtu.be/"')             
             # Check video length, limit 10 minutes
             video_id = extract_video_id(video_url)
             API_KEY = os.environ.get('YOUTUBE_API_KEY')
@@ -131,15 +128,15 @@ def upload():
                 raise BadRequest(
                     'YouTube video is longer than the 10-minute limit. Please provide a shorter video.')
             # download the video locally with pytube
-            downloaded_video = download_video_from_youtube(video_url)
-            # Save file locally
-            filename = secure_filename(downloaded_video.filename)
             VIDEO_FOLDER = current_app.config['VIDEO_FOLDER']
-            video_file_path = os.path.join(VIDEO_FOLDER, filename)
-            downloaded_video.save(video_file_path)            
+            downloaded_video = download_video_from_youtube(video_url, VIDEO_FOLDER)
+            logger.info(f"downloaded_video: {downloaded_video}")
+            # TODO: Revisit this logic. the filename will have spaces and odd characters...
+            # No longer used werkzeug secure_filename here...
+
             # Save YouTube URL in session
             session['YOUTUBE'] = True
-            session['VIDEO_SOURCE'] = video_file_path
+            session['VIDEO_SOURCE'] = downloaded_video
 
         return render_template('loading.html')
 
@@ -250,6 +247,7 @@ def delete_files_locally():
             "files_deleted": files_deleted,
             "errors": errors
         }
+        logger.info("files deleted successfully!")
         return jsonify(response_delete_data), 200 if len(errors) == 0 else 500
     except Exception as e:
         return render_template('error.html', error_message=str(e))

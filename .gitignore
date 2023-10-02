@@ -1,8 +1,8 @@
 # .gitignore
 
 # Python
-/__pycache__
-*__pycache__/*
+__pycache__/
+*.pyc
 *.py[cod]
 *.pyo
 *.pyd
@@ -46,6 +46,8 @@ certs/*
 *.json
 *.sqlite
 .DS_Store
+*.DS_Store*
+*/.DS_Store*
 .vscode/
 temp_data/
 *temp_data/*
