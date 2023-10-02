@@ -1,4 +1,4 @@
-# Use the official Nginx image as the base image
+# Official Nginx image as base image
 FROM nginx:alpine
 
 # Remove default configurations
