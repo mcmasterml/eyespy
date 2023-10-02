@@ -45,14 +45,12 @@ def upload():
     Takes user input from the upload form, validates it, and saves it locally
     """
     try:
-        # Input
         # User Input video file or YouTube URL
         uploaded_file = request.files.get('video_file', None)
         video_url = request.form.get('video_url', "").strip()
 
-        # Handle User Input for Detections
+        # Checkboxes: Handle User Input for selectDetections on upload.html
         selected_detections = request.form.getlist('detections')
-        # Define mapping between selections and detection classes
         meta_class_mapping = {
             'People': [0],
             'Vehicles': list(range(1, 9)),

@@ -6,7 +6,6 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
-    # general configuration
     SECRET_KEY = os.environ.get('SECRET_KEY') or '5WjKWBaQa5TaD594H2oOKw'
     home = BASE_DIR
 
