@@ -1,4 +1,4 @@
-from flask import session, current_app
+from flask import session, current_app, request, flash, redirect, url_for
 import pandas as pd
 import numpy as np
 import cv2
@@ -19,14 +19,105 @@ from pytube import YouTube
 logger = logging.getLogger('video_app')
 
 
+def handle_selections(selections):
+    '''
+    Takes a list of form selection (strings)
+    returns a list of integers corresponding to COCO detection classes
+    '''
+    # Map the selections to the corresponding COCO int classes
+    meta_class_mapping = {
+        'People': [0],
+        'Vehicles': list(range(1, 9)),
+        'Traffic_Signs': list(range(9, 14)),
+        'Animals': list(range(14, 24)),
+        'Sports_Equipment': list(range(24, 39)),
+        'Food': list(range(39, 56)),
+        'Household_Items': list(range(56, 80))
+    }
+    # Create a list of all classes to be detected
+    classes = []
+    for detection in selections:
+        classes.extend(meta_class_mapping.get(detection, []))
+    return classes
+
+
+def flash_messaging(uploaded_file, video_url, selected_detections):
+    '''
+    Takes user input from file Dropzone and YouTube URL
+    returns flash messages in cases of invalid input
+    '''
+    # Neither URL nor file was provided
+    if not uploaded_file and not video_url:
+        flash('Please provide either a video file or a YouTube URL')
+        return redirect(url_for('main.home'))
+    # Both URL and file were provided
+    if uploaded_file and video_url:
+        flash('Please only provide one: a video file or a YouTube URL')
+        return redirect(url_for('main.home'))
+    # Detections were not selected
+    if not selected_detections:
+        flash('Please select at least one detection from Additional Options')
+        return redirect(url_for('main.home'))
+    return
+
+
+def local_file_validation(uploaded_file):
+    '''
+    Validates the user input for video file either from local upload (dropzone)
+    or YouTube URL.
+    '''
+    if not uploaded_file.filename:  # file name exists
+        raise BadRequest('Uploaded file has no name')
+    elif not is_allowed_video(uploaded_file):  # file type allowed
+        raise BadRequest(
+            'Uploaded file is not an allowed video type. Accepted types: .mp4, .mov')
+    # File size limit 500MB
+    file_size_mb = int(request.headers.get(
+        'Content-Length', 0)) / (1024 * 1024)
+    if file_size_mb > 500:
+        raise BadRequest('Uploaded file size exceeds the 500MB limit')
+    return
+
+
+def youtube_url_validation(video_url):
+    '''
+    Takes user input YouTube URL and validates it
+    '''
+    logger.info(f"video_url: {video_url}")
+
+    # String begins with https://www.youtube.com/watch?v= or https://youtu.be/
+    if not (video_url.startswith('https://www.youtube.com/watch?v=') or video_url.startswith('https://youtu.be/')):
+        raise BadRequest(
+            'YouTube URL is invalid. Must begin with "https://www.youtube.com/watch?v=" or "https://youtu.be/"')             
+   
+    # Video length, limit 10 minutes
+    video_id = extract_video_id(video_url)
+    API_KEY = os.environ.get('YOUTUBE_API_KEY')
+    duration_ = get_video_duration(video_id, API_KEY)
+    duration = isodate.parse_duration(duration_).total_seconds()
+    logger.info(f"Video duration: {duration}")
+    if int(duration) > 600:
+        raise BadRequest(
+            'YouTube video is longer than the 10-minute limit. Please provide a shorter video.')
+    return
+
+
 def download_video_from_youtube(url: str, output_path) -> str:
     """
     Download a video from YouTube using pytube
+    Replace spaces with underscores in the filename
     """
-    video_filename = YouTube(url).streams.filter(res='360p', file_extension='mp4',
-                                    type='video', progressive='False').first().download(output_path=output_path)
+    video_filename = (YouTube(url).streams.filter(res='360p', file_extension='mp4',
+                                    type='video', progressive='False').first().download(output_path=output_path))
 
-    return video_filename
+    # rename video file to remove spaces
+    current_path = os.path.join(output_path, video_filename)
+    new_name = video_filename.replace(' ', '_')
+    new_path = os.path.join(output_path, new_name)
+    os.rename(current_path, new_path)
+    
+    return new_path
+
 
 def is_allowed_video(file: FileStorage) -> bool:
     """
