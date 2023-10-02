@@ -12,21 +12,21 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    IMAGE_FOLDER = os.path.join(Config.home, 'temp_data/images')
-    VIDEO_FOLDER = os.path.join(Config.home, 'temp_data/videos')
-    CSV_FOLDER = os.path.join(Config.home, 'temp_data/csvs')
+    IMAGE_FOLDER = os.path.join(Config.home, 'tmp/images')
+    VIDEO_FOLDER = os.path.join(Config.home, 'tmp/videos')
+    CSV_FOLDER = os.path.join(Config.home, 'tmp/csvs')
 
 
 class TestingConfig(Config):
     DEBUG = False
     TESTING = True
-    IMAGE_FOLDER = os.path.join(Config.home, 'temp_data/test_data/images')
-    VIDEO_FOLDER = os.path.join(Config.home, 'temp_data/test_data/videos')
-    CSV_FOLDER = os.path.join(Config.home, 'temp_data/test_data/csvs')
+    IMAGE_FOLDER = os.path.join(Config.home, 'tmp/images')
+    VIDEO_FOLDER = os.path.join(Config.home, 'tmp/videos')
+    CSV_FOLDER = os.path.join(Config.home, 'tmp/csvs')
 
 
 class ProductionConfig(Config):
     DEBUG = False
-    IMAGE_FOLDER = os.path.join(Config.home, 'temp_data/images')
-    VIDEO_FOLDER = os.path.join(Config.home, 'temp_data/videos')
-    CSV_FOLDER = os.path.join(Config.home, 'temp_data/csvs')
+    IMAGE_FOLDER = os.path.join(Config.home, 'tmp/images')
+    VIDEO_FOLDER = os.path.join(Config.home, 'tmp/videos')
+    CSV_FOLDER = os.path.join(Config.home, 'tmp/csvs')
