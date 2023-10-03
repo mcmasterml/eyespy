@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // If drag n drop, disable YouTube URL input
+// TODO: figure out why this wasn't working
 document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('video_file').addEventListener('change', function() {
         let urlField = document.querySelector('.urlInputField');

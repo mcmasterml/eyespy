@@ -7,6 +7,7 @@ import boto3
 from botocore.exceptions import ClientError
 import logging
 import datetime
+from werkzeug.exceptions import BadRequest
 from werkzeug.datastructures import FileStorage
 from werkzeug.utils import secure_filename
 import magic
