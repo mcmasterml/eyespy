@@ -30,11 +30,27 @@
                 <hr class="divider">
                 <!-- input form -->
                 <form method="POST" enctype="multipart/form-data" action="/upload">
+                    <!-- show/hide based on Upload Method -->
+                    <label for="uploadMethod">Choose an upload method:</label>
+                    <ul id="uploadMethod" class="custom-radio-list">
+                        <li>
+                            <input type="radio" name="uploadMethod" id="fileUpload" value="fileUpload">
+                            <label for="fileUpload">Upload a Video</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="uploadMethod" id="youtubeURL" value="youtubeURL">
+                            <label for="youtubeURL">YouTube URL</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="uploadMethod" id="useWebcam" value="useWebcam">
+                            <label for="useWebcam">Use Webcam</label>
+                        </li>
+                    </ul>
                     <!-- dropZone -->
-                    <h3>
-                        Upload a video (.mp4 or .mov)
+                    <h3 id="dropZoneHeader" style="display: none;">
+                        Upload a video
                     </h3>
-                    <div id="dropZone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);">
+                    <div id="dropZone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);" style="display: none;">
                         <img src="{{ url_for('static', filename='images/upload.svg') }}" alt="upload icon">Drag & Drop files or click here
                     </div>
                     <input type="file" id="video_file" name="video_file" style="display: none;">
@@ -47,11 +63,16 @@
                         <div id="fileName"></div>
                     </div>
                     <!-- YouTube URL -->                    
-                    <h3>
-                        Or enter a YouTube URL
+                    <h3 id="urlInputFieldHeader" style="display: none;">
+                        Enter a YouTube URL
                     </h3>
-                    <input type="text" id="urlInputField" class="urlInputField" name="video_url" placeholder="YouTube URL...">
-                    <div id="additionalOptions" class="additionalOptions">
+                    <input type="text" id="urlInputField" class="urlInputField" name="video_url" placeholder="YouTube URL..." style="display: none;">
+                    <!-- Webcam -->
+                    <h3 id="webcamHeader" style="display: none;">
+                        This feature is currently under maintenance... Please choose another upload method.
+                    </h3>
+                    <!-- Options Toggle -->
+                    <div id="additionalOptions" class="additionalOptions" style="display: none;">
                         <button type="button" id="toggleOptions">
                             <u>Additional Options</u>
                         </button>
@@ -99,7 +120,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="getResultsButton"> 
+                    <div id="getResultsButton" class="getResultsButton" style="display: none;"> 
                         <button type="submit">Get Results</button>
                     </div>
                     <!-- Messages to User -->
@@ -137,6 +158,8 @@
         <!-- call /delete_files -->
         <script src="{{ url_for('static', filename='scripts/deleteLocalFiles.js') }}"></script>
 
+        <!-- change UI based on selected Upload Method -->
+        <script src="{{ url_for('static', filename='scripts/uploadMethod.js') }}"></script>
     </body>
 
 </html>

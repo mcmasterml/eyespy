@@ -67,12 +67,12 @@ def upload():
 
         # Flash Messaging
         # Neither URL nor file was provided
-        if not uploaded_file.filename and not video_url:
+        if (uploaded_file is None) and not video_url:
             flash('Please provide either a video file or a YouTube URL')
             return redirect(url_for('main.home'))
 
         # Both URL and file were provided
-        if uploaded_file and video_url:
+        if (uploaded_file is not None) and video_url:
             logger.info(f'this was hit at all! uploaded_file: {uploaded_file}, video_url: {video_url}')
             flash('Please only provide one: a video file or a YouTube URL')
             return redirect(url_for('main.home'))

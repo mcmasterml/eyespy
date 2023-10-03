@@ -30,6 +30,42 @@ form {
     justify-content: space-evenly;
 }
 
+.custom-radio-list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+}
+
+.custom-radio-list li {
+    position: relative;
+    padding: 0 25px; /* to make space for the custom radio button */
+    margin-bottom: 10px;
+}
+
+.custom-radio-list input[type="radio"] {
+    position: absolute;
+    opacity: 0; /* hide the default radio button */
+    cursor: pointer;
+}
+
+.custom-radio-list input[type="radio"] + label:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid #000; /* border color of the circular checkbox */
+    border-radius: 50%;
+    background-color: #fff; /* background color of the circular checkbox */
+}
+
+.custom-radio-list input[type="radio"]:checked + label:before {
+    background-color: #df0303; /* fill color when checked */
+}
+
 #thumbnailPreview {
     text-align: center;
 }
