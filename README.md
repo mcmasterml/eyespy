@@ -12,7 +12,7 @@ In this way, the task of monitoring nefarious activity becomes streamlined by th
 
 It's live!
 
-You can run a local deployment by cloning this repository and following these steps:
+Alternatively, you can run a local deployment by cloning this repository and following these steps:
 
 1. Install [Docker](https://docs.docker.com/engine/install/), Start the Docker Daemon and ensure it is running.
 2. `cd` into the clone of this directory
