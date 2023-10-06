@@ -1,10 +1,16 @@
-# Surveil
+# EyeSpy
 
-### Automating Video Surveillance
+### Automating Video Detections
 
-Presenting surveil, a containerized application which takes video and returns detection and tracking analytics.
+Presenting EyeSpy, a service which takes video and returns object detection and tracking analytics.
 
-A live deployment is freely accessible at my personal website: https://eyespy.petermcmaster.me
+A live deployment is freely accessible [here](https://eyespy.petermcmaster.me)
+
+Motivation for this project comes from a passion for Computer Vision models and a recognition of the current business need for automating surveillance. The idea is to feed video through an object detector (in this case, the YOLOv8 model from [ultralytics](https://github.com/ultralytics/ultralytics)) and return a dataframe and images from objects of interest (i.e. people, cars, etc.)
+
+In this way, the task of monitoring nefarious activity becomes streamlined by the creation of a tabular dataset of everything detected within the video. This allows users to search, scrub, and identify much faster than was previously possible.
+
+It's live!
 
 You can run a local deployment by cloning this repository and following these steps:
 
