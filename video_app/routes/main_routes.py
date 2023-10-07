@@ -7,7 +7,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.datastructures import FileStorage
 
 from video_app.utils import Detections, has_allowed_extension, upload_to_s3, extract_video_id, get_video_duration, download_video_from_youtube
-from video_app.utils import handle_selections, local_file_validation, youtube_url_validation
+from video_app.utils import handle_selections, flash_messaging, local_file_validation, youtube_url_validation
 from video_app.models import load_model
 
 from io import BytesIO
@@ -48,7 +48,7 @@ def upload():
     try:
         ### User Input ###
 
-        # Source: User Input of local video file or YouTube URL TODO: webcam
+        # Source: User Input of local video file or YouTube URL
         uploaded_file = request.files.get('video_file', None)
         logger.info(f'uploaded_file: {uploaded_file}')
         logger.info(print(type(uploaded_file)))
@@ -97,6 +97,7 @@ def upload():
         # Case: YouTube URL
         if not uploaded_file and video_url:
             youtube_url_validation(video_url)
+            downloaded_yt_video = download_video_from_youtube(video_url, VIDEO_FOLDER)
 
             # Download the video and save it locally
             downloaded_video = download_video_from_youtube(video_url, VIDEO_FOLDER)
@@ -119,19 +120,21 @@ def processing():
     try:
         # Load model using cache
         selected_model_type = session.get('MODEL')
-        # If model not in cache, load it, save it in cache
+        # If model not in cache, load it and save it in cache
         if selected_model_type not in current_app.model_cache:
             current_app.model_cache[selected_model_type] = load_model(
                 selected_model_type)
+        # Get the model from cache
         model = current_app.model_cache[selected_model_type]
 
-        ### Process video ###
+        # Process video
         detectionsInVideo = Detections()
         VIDEO = session.get('VIDEO_SOURCE')
+        YOUTUBE = session.get('YOUTUBE')
         CLASSES = session.get(
             'CLASSES', [0, 1, 2, 3, 4, 5, 6, 7, 8])  # default: people & vehicles
         logger.info(f"VIDEO: {VIDEO}")
-        detectionsInVideo.process_video(model, VIDEO, CLASSES)
+        detectionsInVideo.process_video(model, VIDEO, CLASSES, YOUTUBE)
 
         S3_BUCKET = os.environ.get('S3_BUCKET_NAME')
 
@@ -150,24 +153,26 @@ def processing():
         # Only serve images if not YouTube
         image_info = None
 
-        # Write images locally
-        IMAGE_FOLDER = current_app.config['IMAGE_FOLDER']
-        detectionsInVideo.write_images(VIDEO, IMAGE_FOLDER)
-        # Write images to S3 Bucket
-        full_image_paths = [os.path.join(IMAGE_FOLDER, filename) for filename in os.listdir(
-            IMAGE_FOLDER) if os.path.isfile(os.path.join(IMAGE_FOLDER, filename))]
-        for image in full_image_paths:
-            upload_to_s3(image, S3_BUCKET)
-        logger.info('images successfully written to s3 bucket')
+        # If local file (not YouTube), write and serve images
+        if not YOUTUBE:
+            # Write images locally
+            IMAGE_FOLDER = current_app.config['IMAGE_FOLDER']
+            detectionsInVideo.write_images(VIDEO, IMAGE_FOLDER)
+            # Write images to S3 Bucket
+            full_image_paths = [os.path.join(IMAGE_FOLDER, filename) for filename in os.listdir(
+                IMAGE_FOLDER) if os.path.isfile(os.path.join(IMAGE_FOLDER, filename))]
+            for image in full_image_paths:
+                upload_to_s3(image, S3_BUCKET)
+            logger.info('images successfully written to s3 bucket')
 
-        # serve images to user as image_info as (filename, url)
-        IMAGE_FOLDER = current_app.config['IMAGE_FOLDER']
-        images = [f for f in os.listdir(IMAGE_FOLDER) if (
-            f.lower().endswith('.jpg') or f.lower().endswith('.jpeg'))]
-        image_info = [(f, url_for('main.serve_image', filename=f))
-                        for f in images]
+            # serve images to user as image_info as (filename, url)
+            IMAGE_FOLDER = current_app.config['IMAGE_FOLDER']
+            images = [f for f in os.listdir(IMAGE_FOLDER) if (
+                f.lower().endswith('.jpg') or f.lower().endswith('.jpeg'))]
+            image_info = [(f, url_for('main.serve_image', filename=f))
+                          for f in images]
 
-        return render_template('results.html', image_info=image_info, table_html=table_html)
+        return render_template('results.html', youtube=YOUTUBE, image_info=image_info, table_html=table_html)
     except Exception as e:
         return render_template('error.html', error_message=str(e))
 
