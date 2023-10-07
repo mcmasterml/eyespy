@@ -1,22 +1,15 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+h3 {
+    color: #ededed;
 }
 
 .carousel-inner .carousel-item img {
-    max-width: 95%;
-    max-height: 100%;
+    max-width: 550px;
     margin: auto;
     display: block;
 }
 
-.buffer {
-    height: 40px;
-}
-
 .tryAnother {
-    padding: 0 0 50px 0;
+    padding: 60px 0;
 }
 
 #makeButton {
@@ -28,5 +21,27 @@ body {
     color: white;
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
-    transition: background 0.3s;
+    transition: background-color 0.3s;
+}
+
+#detectionsDF {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #151515;
+}
+
+.sorting {
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    color: #d8d8d8;
+    background-color: #33313e;
+}
+
+.dataTables_wrapper {
+    width: 600px;
 }

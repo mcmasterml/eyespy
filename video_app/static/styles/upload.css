@@ -1,39 +1,34 @@
-.uploadTitle {
-    color: #def2f8;
-    font-family: 'Montserrat', sans-serif;
-    padding: 0 0 20px 0;
-}
-
-#dropZone {
-    width: 60%;
-    border: 2px dashed #ffffff;
-    margin: 10px auto;
-    padding: 10px; 
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 18px
-}
-
-#dropZone:hover {
-    background-color: #de6637;
-}
-
 form {
     display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.leftSide {
+    flex-grow: 1;
+    display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
+    min-width: 250px;
+    min-height: 350px;
+    border-right: double;
+    border-color: #b4d3cd;
+}
+
+#selectMethodText {
+    font-family: 'Roboto', sans-serif;
+    padding: 2px;
+    border-bottom: double;
+    margin: 100px 60px 15px 60px;
+    font-size: 18px;
+    color: #ffffff;
 }
 
 .custom-radio-list {
     list-style-type: none;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding: 0;
 }
 
@@ -55,6 +50,7 @@ form {
     top: 50%;
     left: 0;
     transform: translateY(-50%);
+    margin-left: 40px;
     width: 16px;
     height: 16px;
     border: 2px solid #000; /* border color of the circular checkbox */
@@ -63,33 +59,65 @@ form {
 }
 
 .custom-radio-list input[type="radio"]:checked + label:before {
-    background-color: #df0303; /* fill color when checked */
+    background-color: #d10000; /* fill color when checked */
+}
+
+.rightSide {
+    flex-grow: 4;
+    width: 550px;
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.miniHeader {
+    margin: 40px 60px 0 60px;
+}
+
+#dropZone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    width: 400px;
+    border: 2px dashed #ffffff;
+    margin: 10px auto;
+    padding: 10px; 
+    transition: background-color 0.3s;
+    color: white;
+    font-size: 18px
+}
+
+#dropZone:hover {
+    background-color: #989898;
+}
+
+#dropZoneText {
+    color: #def2f8;
+    font-family: 'Roboto', sans-serif;
 }
 
 #thumbnailPreview {
     text-align: center;
+    margin: 0 auto;
 }
 
-.fileName {
+#fileName {
     color: white;
+    font-family: 'Roboto', sans-serif;
 }
 
 .urlInputField {
     max-width: 400px;
     width: 90%;
-    margin: 5px 0;
+    margin: 30px auto;
     padding: 5px;
     border: 1px solid #070707;
     border-radius: 5px;
     background: solid;
     font-family: 'Montserrat', sans-serif;
-}
-
-#optionsContainer {
-    display: none;
-    flex-direction: row;
-    width: 100%;
-    flex: 1;
 }
 
 .additionalOptions button {
@@ -102,67 +130,62 @@ form {
     background: rgba(255, 255, 255, 0) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat;
     background-position: right 0px center;
     padding-right: 20px;
+    margin-top: 10px;
 }
 
-.selectDetections {
+#optionsContainer {
+    display: none;
+    width: 100%;
+}
+
+.selectDetections, .selectModel {
     flex: 1;
-    margin: 15px 0;
-    padding: 0 5% 0 15%;
     text-align: justify;
 }
 
-#selectDetectionsHeader {
-    padding: 0 0 15px 0;
-    font-size: 18px;
+#selectDetectionsHeader, #selectModelHeader {
+    color: #def2f8;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 400;
+    font-size: 16px;
+    padding: 10px 0 0 40px;
+    margin-bottom: 5px;
 }
 
 .selectDetections label {
     color: white;
+    margin-left: 80px;
     font-weight: 200;
-}
-
-.selectModel {
-    flex: 1;
-    margin: 15px 0;
-    padding: 0 15% 0 10%;
-    text-align: justify;
-}
-
-#selectModelHeader {
-    padding: 0 0 15px 0;
-    font-size: 18px;
-    font-weight: 400;
 }
 
 #singleSelectModel {
     cursor: pointer;
+    margin: 15px 0 0 45px;
     padding: 5px;
+    width: 100px;
     border: none;
     border-radius: 5px;
     color: white;
     font-family: 'Montserrat', sans-serif;
     font-size: 12px;
-    appearance: none; /* Hides default select appearance, which varies between browsers */
+    appearance: none; /* Hides default select appearance (dropdown caret), which varies between browsers */
     -webkit-appearance: none; /* For Safari */
     -moz-appearance: none; /* For Firefox */
-    width: 100px;
     background: #dc612d url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat;
     background-position: right 5px center;
-    padding-right: 40px;
 
 }
 
 .getResultsButton button {
     cursor: pointer;
     padding: 10px 20px;
-    background: #c7592a;  
+    background-color: #c7592a;  
     border: none;
     border-radius: 10px;
     color: white;
     font-family: 'Montserrat', sans-serif;
     font-size: 18px;
-    transition: background 0.3s;
+    transition: background-color 0.3s;
 }
 
 .getResultsButton button:hover {
@@ -187,12 +210,14 @@ form {
   }
 
 .flash-message {
-background-color: #e3a0a0;
-border: 1px solid #ddd;
-padding: 10px 10px;
-margin-bottom: 10px;
-position: relative;
-border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    color: rgb(230, 230, 230);
+    background-color: #540606;
+    border: 1px solid #b4b4b4;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    position: relative;
+    border-radius: 4px;
 }
 
 .flash-message span {
@@ -200,15 +225,17 @@ border-radius: 4px;
 }
 
 .closeFlashMessage {
-position: absolute;
-right: 10px;
-top: 50%;
-transform: translateY(-50%);
-background: none;
-border: none;
-font-size: 20px;
-cursor: pointer;
-background-color: none;
-border-radius: 50%;
-padding-left: 40px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: none;
+    border-radius: 50%;
+    padding-left: 40px;
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Upload a Video</title>
+        <title>Upload a VideoTEST</title>
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +11,8 @@
         <!-- fonts: Montserrat 100 200 400 600, Open Sans 300 400 600, Roboto 300 400 600 -->
         
         <!-- for testing styles -->
-        <!-- <link rel="stylesheet" href="styles/main.css">
-        <link rel="stylesheet" href="styles/upload.css"> -->
+        <!-- <link rel="stylesheet" href="../static/styles/main.css">
+        <link rel="stylesheet" href="../static/styles/upload.css"> -->
 
         <!-- for production -->
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
@@ -22,20 +22,19 @@
 
     <body>
         <div class="mainContainer">
-            <div class="subContainer">
-                <!-- header -->
-                <div class="mainTitle">
-                    <h1>EyeSpy</h1>
-                </div>
-                <hr class="divider">
-                <!-- input form -->
-                <form method="POST" enctype="multipart/form-data" action="/upload">
+            <!-- header -->
+            <div class="mainTitle">
+                <h1>EyeSpy</h1>
+                <h3>Automatic Object Detection and Tracking in Video</h3>
+            </div>
+            <form method="POST" enctype="multipart/form-data" action="/upload">
+                <div class="leftSide">
                     <!-- show/hide based on Upload Method -->
-                    <label for="uploadMethod">Choose an upload method:</label>
+                    <label for="uploadMethod" id="selectMethodText">Select Method:</label>
                     <ul id="uploadMethod" class="custom-radio-list">
                         <li>
                             <input type="radio" name="uploadMethod" id="fileUpload" value="fileUpload">
-                            <label for="fileUpload">Upload a Video</label>
+                            <label for="fileUpload">  Upload a Video</label>
                         </li>
                         <li>
                             <input type="radio" name="uploadMethod" id="youtubeURL" value="youtubeURL">
@@ -46,29 +45,36 @@
                             <label for="useWebcam">Use Webcam</label>
                         </li>
                     </ul>
+                </div>
+                <div class="rightSide">
                     <!-- dropZone -->
-                    <h3 id="dropZoneHeader" style="display: none;">
+                    <h3 id="dropZoneHeader" class="miniHeader" style="display: none;">
                         Upload a video
                     </h3>
                     <div id="dropZone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);" ondragleave="dragLeaveHandler(event);" style="display: none;">
-                        <img src="{{ url_for('static', filename='images/upload.svg') }}" alt="upload icon">Drag & Drop files or click here
+                        <div id="dropZoneImg">
+                            <img src="{{ url_for('static', filename='images/upload.svg') }}" alt="upload icon">
+                        </div>
+                        <div id="dropZoneText">
+                            <span>Drag & Drop files or click here</span>
+                        </div>
                     </div>
                     <input type="file" id="video_file" name="video_file" style="display: none;">
                     <!-- preview file in dropZone after drop -->
                     <div id="thumbnailPreview" style="display: none;">
                         <video width="320" height="240" controls style="display: none;">
                             <source id="videoSource" src="" type="video/mp4">
-                            Your browser does not support the video tag.!
+                            Your browser does not support the video tag.
                         </video>
                         <div id="fileName"></div>
                     </div>
                     <!-- YouTube URL -->                    
-                    <h3 id="urlInputFieldHeader" style="display: none;">
+                    <h3 id="urlInputFieldHeader" class="miniHeader" style="display: none;">
                         Enter a YouTube URL
                     </h3>
                     <input type="text" id="urlInputField" class="urlInputField" name="video_url" placeholder="YouTube URL..." style="display: none;">
                     <!-- Webcam -->
-                    <h3 id="webcamHeader" style="display: none;">
+                    <h3 id="webcamHeader" class="miniHeader" style="display: none;">
                         This feature is currently under maintenance... Please choose another upload method.
                     </h3>
                     <!-- Options Toggle -->
@@ -139,26 +145,24 @@
                             {% endif %}
                         {% endwith %}
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
 
         <!-- handles show/hide additional options, handles drag n drop -->
 
         <!-- local hosting with Live Server -->
-        <!-- <script src="scripts/dismissMessage.js"></script>
-        <script src="scripts/optionsToggle.js"></script>
-        <script src="scripts/dropZone.js"></script> -->
+        <!-- <script src="../static/scripts/dismissMessage.js"></script>
+        <script src="../static/scripts/optionsToggle.js"></script>
+        <script src="../static/scripts/dropZone.js"></script>
+        <script src="../static/scripts/deleteLocalFiles.js"></script>
+        <script src="../static/scripts/uploadMethod.js"></script> -->
 
         <!-- when app is run end-to-end via Docker -->
         <script src="{{ url_for('static', filename='scripts/dismissMessage.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/optionsToggle.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/dropZone.js') }}"></script>
-
-        <!-- call /delete_files -->
         <script src="{{ url_for('static', filename='scripts/deleteLocalFiles.js') }}"></script>
-
-        <!-- change UI based on selected Upload Method -->
         <script src="{{ url_for('static', filename='scripts/uploadMethod.js') }}"></script>
     </body>
 
