@@ -6,6 +6,8 @@ form {
     height: 100%;
 }
 
+
+
 .leftSide {
     flex-grow: 1;
     display: flex;
