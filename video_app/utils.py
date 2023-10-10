@@ -446,7 +446,7 @@ class Detections:
     def write_csv(self, CSV_FOLDER, VIDEO):
         """Writes csv to a folder
         """
-        filename = str(VIDEO).split('/')[-1]
+        filename = (str(VIDEO).split('/')[-1])[:-4] + '.csv'
         csv_path = os.path.join(CSV_FOLDER, filename)
         with open(csv_path, 'w') as f:
             f.write(self.csv)

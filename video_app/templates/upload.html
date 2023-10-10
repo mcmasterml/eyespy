@@ -7,6 +7,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta description="Machine Learning Engineer Peter McMaster Portfolio and Personal Website.">
 
+        <!-- Delete files from video_app/tmp -->
+        <script>
+            function initiateFileDeletion() {
+                setTimeout(function() {
+                    fetch('/delete_files')
+                    .then(response => {
+                        if (response.ok) {
+                            console.log("File deletion has begun.");
+                        } else {
+                            console.error("Failed to begin file deletion. Response:", response.statusText);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Network error or other failure:", error);
+                    });
+                }, 5000);
+            }
+    
+            initiateFileDeletion();
+        </script>
+        
+        <!-- fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;600&family=Open+Sans:wght@300;400;600&family=Roboto:wght@300;400;600&display=swap">
         <!-- fonts: Montserrat 100 200 400 600, Open Sans 300 400 600, Roboto 300 400 600 -->
 
@@ -133,9 +155,6 @@
                             </select>
                         </div>
                     </div>
-                    <div id="getResultsButton" class="getResultsButton" style="display: none;"> 
-                        <button type="submit">Get Results</button>
-                    </div>
                     <!-- Messages to User -->
                     <div id="flashMessages" class="flashMessages">
                         {% with messages = get_flashed_messages() %}
@@ -152,6 +171,9 @@
                             {% endif %}
                         {% endwith %}
                     </div>
+                    <div id="getResultsButton" class="getResultsButton" style="display: none;"> 
+                        <button type="submit">Get Results</button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -159,7 +181,6 @@
         <script src="{{ url_for('static', filename='scripts/dismissMessage.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/optionsToggle.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/dropZone.js') }}"></script>
-        <script src="{{ url_for('static', filename='scripts/deleteLocalFiles.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/uploadMethod.js') }}"></script>
     
     </body>
