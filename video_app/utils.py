@@ -243,7 +243,7 @@ def seconds_to_mmss(seconds):
 def get_summary_df(df, labels):
     """
     Create a summary dataframe from the detections dataframe 
-    to be presented to the user
+    to be presented to the user.
     """
     grouped = df.groupby('track_id')
 
@@ -407,8 +407,6 @@ class Detections:
     """
 
     def __init__(self):
-        """ TODO: add docstring
-        """
         self.results = []
         self.df = None
         self.track_ids = None
@@ -417,6 +415,15 @@ class Detections:
         self.labels = None
 
     def process_video(self, model, VIDEO, CLASSES):
+        '''
+        Processes the user-input video with selected YOLOv8 Model.
+        Called from /processing route.
+
+        Params:
+        model -- selected from upload.html in additional options menu
+        VIDEO -- provided by user on upload.html
+        CLASSES -- Class names, vary with user selections upload.html
+        '''
         try:
             logger.info('Video processing has begun')
             self.results = list(model.track(source=VIDEO, conf=0.5, iou=0.5,
@@ -434,9 +441,9 @@ class Detections:
         return
 
     def write_images(self, VIDEO, IMAGE_FOLDER):
-        """
+        '''
         Draws bounding boxes on a frame from the video
-        """
+        '''
         logger.info('Class Detections method write_images() has begun')
         middle_frames = get_middle_frames(self.df, self.track_ids)
         images = get_images(self.df, self.labels, VIDEO,
@@ -445,9 +452,9 @@ class Detections:
         return images
 
     def write_csv(self, CSV_FOLDER, VIDEO):
-        """
+        '''
         Writes csv to a folder
-        """
+        '''
         filename = (str(VIDEO).split('/')[-1])[:-4] + '.csv'
         csv_path = os.path.join(CSV_FOLDER, filename)
         with open(csv_path, 'w') as f:
