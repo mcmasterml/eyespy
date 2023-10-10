@@ -72,9 +72,9 @@ def upload():
             return redirect(url_for('main.home'))
 
         # Both URL and file were provided
-        if (uploaded_file is not None) and video_url:
-            flash('Please only provide one: a video file or a YouTube URL')
-            return redirect(url_for('main.home'))
+        # if (uploaded_file is not None) and video_url:
+        #     flash('Please only provide one: a video file or a YouTube URL')
+        #     return redirect(url_for('main.home'))
 
         # Detections were not selected
         if not selected_detections:

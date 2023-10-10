@@ -6,16 +6,29 @@ form {
     height: 100%;
 }
 
-
+@media (max-width: 768px) {
+    form {
+        flex-direction: column;
+    }
+}
 
 .leftSide {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-    min-width: 250px;
-    min-height: 350px;
+    width: 250px;
     border-right: double;
     border-color: #b4d3cd;
+}
+
+@media (max-width: 768px) {
+    .leftSide {
+        flex-grow: 0;
+        width: 100%;
+        border-right: none;
+        border-bottom: double;
+        border-color: #b4d3cd;
+    }
 }
 
 #selectMethodText {
@@ -27,17 +40,28 @@ form {
     color: #ffffff;
 }
 
+@media (max-width: 768px) {
+    #selectMethodText {
+        margin: 1rem auto;
+    }
+}
+
 .custom-radio-list {
     list-style-type: none;
     display: flex;
     flex-direction: column;
     padding: 0;
+    margin-bottom: 1rem;
 }
 
 .custom-radio-list li {
     position: relative;
-    padding: 0 25px; /* to make space for the custom radio button */
-    margin-bottom: 10px;
+    text-align: left;
+    margin-bottom: 0.8rem;
+}
+
+.custom-radio-list label {
+    padding-left: 4rem;
 }
 
 .custom-radio-list input[type="radio"] {
@@ -73,9 +97,43 @@ form {
     justify-content: space-between;
 }
 
-.miniHeader {
-    margin: 40px 60px 0 60px;
+@media (max-width: 768px) {
+    .rightSide {
+        width: 100%;
+        min-height: 0px;
+        flex-grow: 1;
+    }
 }
+
+.miniHeader {
+    margin: 2.5rem 4rem 0 4rem;
+}
+
+@media (max-width: 768px) {
+    .miniHeader{
+        margin: 2.5rem 1.5rem 1rem 1.5rem;
+    }
+}
+
+/* Start Here (Demo) */
+
+#sampleVideo {
+    margin: 1rem 0 0 0;
+}
+
+#sampleVideo iframe {
+    width: 400px;
+    height: 225px;
+}
+
+@media (max-width: 768px) {
+    #sampleVideo iframe {
+        width: 300px;
+        height: 169px;
+    }
+}
+
+/* dropZone */
 
 #dropZone {
     display: flex;
@@ -83,7 +141,7 @@ form {
     align-items: center;
     justify-content: center;
     font-family: 'Roboto', sans-serif;
-    width: 400px;
+    width: 70%;
     border: 2px dashed #ffffff;
     margin: 10px auto;
     padding: 10px; 
@@ -112,14 +170,23 @@ form {
 }
 
 .urlInputField {
-    max-width: 400px;
+    max-width: 22rem;
     width: 90%;
-    margin: 30px auto;
+    margin: 2rem auto;
     padding: 5px;
     border: 1px solid #070707;
     border-radius: 5px;
-    background: solid;
     font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 768px) {
+    h3 #urlInputFieldHeader .miniHeader {
+        margin: 1.2rem auto 1rem auto;
+    }
+
+    .urlInputField {
+        margin: 1rem auto;
+    }
 }
 
 .additionalOptions button {
@@ -136,46 +203,66 @@ form {
 }
 
 #optionsContainer {
-    display: none;
     width: 100%;
+}
+
+@media (max-width: 768px) {
+    #optionsContainer {
+        flex-direction: column;
+    }
 }
 
 .selectDetections, .selectModel {
     flex: 1;
     text-align: justify;
+    margin-bottom: 1rem;
 }
 
 #selectDetectionsHeader, #selectModelHeader {
     color: #def2f8;
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-    font-size: 16px;
-    padding: 10px 0 0 40px;
-    margin-bottom: 5px;
+    font-size: 1rem;
+    margin: 0.8rem auto 0.8rem 2.2rem;
 }
 
 .selectDetections label {
     color: white;
-    margin-left: 80px;
+    margin: 0 auto 0.1rem 3.5rem;
     font-weight: 200;
+}
+
+@media (max-width: 768px) {
+    #selectDetectionsHeader, #selectModelHeader {
+        margin: 0.8rem auto 0.8rem 0.8rem;
+    }
+
+    .selectDetections label {
+        margin: 0 auto 0.2rem 2rem;
+    }
 }
 
 #singleSelectModel {
     cursor: pointer;
-    margin: 15px 0 0 45px;
+    margin: 0 0 0 3.5rem;
     padding: 5px;
     width: 100px;
     border: none;
     border-radius: 5px;
     color: white;
     font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
+    font-size: 0.8rem;
     appearance: none; /* Hides default select appearance (dropdown caret), which varies between browsers */
     -webkit-appearance: none; /* For Safari */
     -moz-appearance: none; /* For Firefox */
     background: #dc612d url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat;
     background-position: right 5px center;
+}
 
+@media (max-width: 768px) {
+    #singleSelectModel {
+        margin: 0.6rem 0 0 1.5rem;
+    }
 }
 
 .getResultsButton button {

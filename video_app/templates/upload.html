@@ -33,12 +33,16 @@
                     <label for="uploadMethod" id="selectMethodText">Select Method:</label>
                     <ul id="uploadMethod" class="custom-radio-list">
                         <li>
-                            <input type="radio" name="uploadMethod" id="fileUpload" value="fileUpload">
-                            <label for="fileUpload">  Upload a Video</label>
+                            <input type="radio" name="uploadMethod" id="startHere" value="startHere">
+                            <label for="startHere">Start Here (Demo)</label>
                         </li>
                         <li>
                             <input type="radio" name="uploadMethod" id="youtubeURL" value="youtubeURL">
                             <label for="youtubeURL">YouTube URL</label>
+                        </li>
+                        <li>
+                            <input type="radio" name="uploadMethod" id="fileUpload" value="fileUpload">
+                            <label for="fileUpload">Upload a Video</label>
                         </li>
                         <li>
                             <input type="radio" name="uploadMethod" id="useWebcam" value="useWebcam">
@@ -47,6 +51,22 @@
                     </ul>
                 </div>
                 <div class="rightSide">
+                    <!-- Start Here (Demo) -->
+                    <h3 id="sampleVideoHeader" class="miniHeader" style="display: none;">
+                        Here's a sample video
+                    </h3>
+                    <div id="sampleVideo" style="display: none;">
+                        <iframe src="https://www.youtube.com/embed/QivcVhGtBJA?si=zrPdzoXuQweWCfKL" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                    <!-- YouTube URL -->                    
+                    <h3 id="urlInputFieldHeader" class="miniHeader" style="display: none;">
+                        Enter a YouTube URL
+                    </h3>
+                    <input type="text" id="urlInputField" class="urlInputField" name="video_url" placeholder="YouTube URL..." style="display: none;">
+                    <!-- Webcam -->
+                    <h3 id="webcamHeader" class="miniHeader" style="display: none;">
+                        This feature is currently under maintenance... Please choose another video method.
+                    </h3>
                     <!-- dropZone -->
                     <h3 id="dropZoneHeader" class="miniHeader" style="display: none;">
                         Upload a video
@@ -68,15 +88,6 @@
                         </video>
                         <div id="fileName"></div>
                     </div>
-                    <!-- YouTube URL -->                    
-                    <h3 id="urlInputFieldHeader" class="miniHeader" style="display: none;">
-                        Enter a YouTube URL
-                    </h3>
-                    <input type="text" id="urlInputField" class="urlInputField" name="video_url" placeholder="YouTube URL..." style="display: none;">
-                    <!-- Webcam -->
-                    <h3 id="webcamHeader" class="miniHeader" style="display: none;">
-                        This feature is currently under maintenance... Please choose another upload method.
-                    </h3>
                     <!-- Options Toggle -->
                     <div id="additionalOptions" class="additionalOptions" style="display: none;">
                         <button type="button" id="toggleOptions">
