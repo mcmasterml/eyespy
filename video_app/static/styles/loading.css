@@ -1,14 +1,6 @@
-.subContainer h4 {
-  margin: 0 10%;
-  padding: 80px auto 10px auto;
-  color: white;
-  text-align: center;
-  font-weight: 100
-}
-
 .waviy {
   position: relative;
-  margin: 60px auto;
+  margin: 4rem auto;
   padding: auto;
 }
 
@@ -17,11 +9,26 @@
   font-weight: 400;
   position: relative;
   display: inline-block;
-  font-size: 40px;
+  font-size: 3rem;
   color: #fff;
   text-transform: uppercase;
   animation: flip 3s infinite;
   animation-delay: calc(.3s * var(--i))
+}
+
+.processingMessage h3 b {
+  margin: 0 0 2rem 0;
+}
+
+@media (max-width: 768px) {
+  
+  .waviy {
+    margin: 3rem 0.5rem;
+  }
+
+  .waviy span {
+    font-size: 1.8rem;
+  }
 }
 
 h3 {

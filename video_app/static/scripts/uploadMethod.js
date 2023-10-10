@@ -23,15 +23,18 @@ document.querySelectorAll('input[name="uploadMethod"]').forEach(function(radio) 
         } else if (selectedMethod === 'fileUpload') {
             document.getElementById('dropZone').style.display = 'block';
             document.getElementById('dropZoneHeader').style.display = 'block';
+            document.getElementById('urlInputField').value = "";
             document.getElementById('additionalOptions').style.display = 'block';
             document.getElementById('getResultsButton').style.display = 'block';
         } else if (selectedMethod === 'youtubeURL') {
             document.getElementById('urlInputField').style.display = 'block';
             document.getElementById('urlInputFieldHeader').style.display = 'block';
+            document.getElementById('urlInputField').value = "";
             document.getElementById('additionalOptions').style.display = 'block';
             document.getElementById('getResultsButton').style.display = 'block';
         } else if (selectedMethod === 'useWebcam') {
             document.getElementById('webcamHeader').style.display = 'block';
+            document.getElementById('urlInputField').value = "";
         }
     });
 });

@@ -9,12 +9,8 @@
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;600&family=Open+Sans:wght@300;400;600&family=Roboto:wght@300;400;600&display=swap">
         <!-- fonts: Montserrat 100 200 400 600, Open Sans 300 400 600, Roboto 300 400 600 -->
-        
-        <!-- for testing styles -->
-        <!-- <link rel="stylesheet" href="../static/styles/main.css">
-        <link rel="stylesheet" href="../static/styles/upload.css"> -->
 
-        <!-- for production -->
+        <!-- Custom Styles -->
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='styles/upload.css') }}">
 
@@ -160,21 +156,12 @@
             </form>
         </div>
 
-        <!-- handles show/hide additional options, handles drag n drop -->
-
-        <!-- local hosting with Live Server -->
-        <!-- <script src="../static/scripts/dismissMessage.js"></script>
-        <script src="../static/scripts/optionsToggle.js"></script>
-        <script src="../static/scripts/dropZone.js"></script>
-        <script src="../static/scripts/deleteLocalFiles.js"></script>
-        <script src="../static/scripts/uploadMethod.js"></script> -->
-
-        <!-- when app is run end-to-end via Docker -->
         <script src="{{ url_for('static', filename='scripts/dismissMessage.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/optionsToggle.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/dropZone.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/deleteLocalFiles.js') }}"></script>
         <script src="{{ url_for('static', filename='scripts/uploadMethod.js') }}"></script>
+    
     </body>
 
 </html>

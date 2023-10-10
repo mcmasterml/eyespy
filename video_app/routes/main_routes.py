@@ -137,7 +137,7 @@ def processing():
 
         # Write csv locally
         CSV_FOLDER = current_app.config['CSV_FOLDER']
-        csv_path = detectionsInVideo.write_csv(CSV_FOLDER)
+        csv_path = detectionsInVideo.write_csv(CSV_FOLDER, VIDEO)
         # Write csv to S3 Bucket
         upload_to_s3(csv_path, S3_BUCKET)
 
@@ -240,6 +240,8 @@ def download_images():
     """
     try:
         image_folder = current_app.config['IMAGE_FOLDER']
+        VIDEO = session.get('VIDEO_SOURCE')
+        filename = (str(VIDEO).split('/')[-1])[:-4]
 
         # Create a Zip file on-the-fly
         in_memory_zip = BytesIO()
@@ -250,7 +252,7 @@ def download_images():
 
         in_memory_zip.seek(0)
         return send_file(in_memory_zip,
-                         download_name='images.zip',
+                         download_name=f'{filename}.zip',
                          as_attachment=True)
     except Exception as e:
         return render_template('error.html', error_message=str(e))
@@ -264,6 +266,8 @@ def download_csv():
     try:
         # Fetch csv file path from session
         csv_file_path = session.get('CSV')
+        VIDEO = session.get('VIDEO_SOURCE')
+        filename = (str(VIDEO).split('/')[-1])[:-4]
 
         if csv_file_path is None or not os.path.exists(csv_file_path):
             raise BadRequest("CSV file not found")
@@ -274,7 +278,7 @@ def download_csv():
 
         # Create a response with csv data, content_type, headers, and a filename
         csv_response = Response(csv_data, content_type='text/csv')
-        csv_response.headers['Content-Disposition'] = 'attachment; filename=detections.csv'
+        csv_response.headers['Content-Disposition'] = f'attachment; filename={filename}.csv'
 
         return csv_response
     except Exception as e:

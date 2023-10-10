@@ -1,5 +1,14 @@
-h3 {
-    color: #ededed;
+.mainContainer h3 {
+    border-bottom: none;
+    margin-top: 2rem;
+}
+
+.mainContainer a {
+    margin: 0.1rem 0rem 0.8rem 0rem;
+}
+
+.mainTitle {
+    border-bottom: none;
 }
 
 .carousel-inner .carousel-item img {
@@ -44,4 +53,27 @@ h3 {
 
 .dataTables_wrapper {
     width: 600px;
+}
+
+@media (max-width: 768px) {
+
+    .dataTables_wrapper {
+        width: 360px;
+    }
+
+    table.dataTable thead .sorting {
+        font-size: 9px;
+        padding: 2px 14px 2px 2px;
+    }
+
+    table.dataTable tbody td {
+        font-size: 9px;
+        padding: 4px 0px;
+    }
+
+    .carousel-inner .carousel-item img {
+        max-width: 260px;
+        margin: auto;
+        display: block;
+    }
 }

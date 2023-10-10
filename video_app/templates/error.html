@@ -11,32 +11,26 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;400;600&family=Open+Sans:wght@300;400;600&family=Roboto:wght@300;400;600&display=swap">
         <!-- fonts: Montserrat 100 200 400 600, Open Sans 300 400 600, Roboto 300 400 600 -->
         
-        <!-- for testing styles -->
-        <link rel="stylesheet" href="../static/styles/main.css">
-        <link rel="stylesheet" href="../static/styles/error.css">
-
-        <!-- for production -->
-        <!-- <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='styles/error.css') }}"> -->
+        <!-- Custom Styles -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles/error.css') }}">
 
     </head>
 
     <body>
         <div class="mainContainer">
-            <div class="subContainer">
-                <div class="mainTitle">
-                    <h1>EyeSpy</h1>
-                    <h3>Extract data from video with State-of-the-Art AI</h3>
+            <div class="mainTitle">
+                <h1>EyeSpy</h1>
+                <h3>Extract data from video with State-of-the-Art AI</h3>
+            </div>
+            <!-- error message -->
+            <div class="errorContainer">
+                <div class="errorMessage">
+                    <h3>Oops! Something went wrong.</h3>
+                    <p>{{ error_message }}</p>
                 </div>
-                <!-- error message -->
-                <div class="errorContainer">
-                    <div class="errorMessage">
-                        <h3>Oops! Something went wrong.</h3>
-                        <p>{{ error_message }}</p>
-                    </div>
-                    <div class="tryAgain">
-                        <a id="makeButton" href="/">Try Again</a>
-                    </div>
+                <div class="tryAgain">
+                    <a id="makeButton" href="/">Try Again</a>
                 </div>
             </div>
         </div>

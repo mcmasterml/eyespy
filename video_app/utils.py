@@ -77,8 +77,8 @@ def youtube_url_validation(video_url):
     # String begins with https://www.youtube.com/watch?v= or https://youtu.be/
     if not (video_url.startswith('https://www.youtube.com/watch?v=') or video_url.startswith('https://youtu.be/')):
         raise BadRequest(
-            'YouTube URL is invalid. Must begin with "https://www.youtube.com/watch?v=" or "https://youtu.be/"')             
-   
+            'YouTube URL is invalid. Must begin with "https://www.youtube.com/watch?v=" or "https://youtu.be/"')
+
     # Video length, limit 10 minutes
     video_id = extract_video_id(video_url)
     API_KEY = os.environ.get('YOUTUBE_API_KEY')
@@ -97,14 +97,14 @@ def download_video_from_youtube(url: str, output_path) -> str:
     Replace spaces with underscores in the filename
     """
     video_filename = (YouTube(url).streams.filter(res='360p', file_extension='mp4',
-                                    type='video', progressive='False').first().download(output_path=output_path))
+                                                  type='video', progressive='False').first().download(output_path=output_path))
 
     # rename video file to remove spaces
     current_path = os.path.join(output_path, video_filename)
     new_name = video_filename.replace(' ', '_')
     new_path = os.path.join(output_path, new_name)
     os.rename(current_path, new_path)
-    
+
     return new_path
 
 
@@ -130,13 +130,6 @@ def has_allowed_extension(filename):
     """
     allowed_extensions = ['mp4', 'mov']
     return ('.' in filename and filename.rsplit('.', 1)[1].lower() in allowed_extensions)
-
-
-def generate_filename():
-    """
-    generates a filename for the csv
-    """
-    return f"detections_data_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
 
 
 def get_frame_rate(VIDEO):
@@ -450,10 +443,10 @@ class Detections:
         logger.info('images successfully written locally')
         return images
 
-    def write_csv(self, CSV_FOLDER):
+    def write_csv(self, CSV_FOLDER, VIDEO):
         """Writes csv to a folder
         """
-        filename = generate_filename()
+        filename = str(VIDEO).split('/')[-1]
         csv_path = os.path.join(CSV_FOLDER, filename)
         with open(csv_path, 'w') as f:
             f.write(self.csv)
