@@ -434,7 +434,8 @@ class Detections:
         return
 
     def write_images(self, VIDEO, IMAGE_FOLDER):
-        """Draws bounding boxes on a frame from the video
+        """
+        Draws bounding boxes on a frame from the video
         """
         logger.info('Class Detections method write_images() has begun')
         middle_frames = get_middle_frames(self.df, self.track_ids)
@@ -444,7 +445,8 @@ class Detections:
         return images
 
     def write_csv(self, CSV_FOLDER, VIDEO):
-        """Writes csv to a folder
+        """
+        Writes csv to a folder
         """
         filename = (str(VIDEO).split('/')[-1])[:-4] + '.csv'
         csv_path = os.path.join(CSV_FOLDER, filename)
@@ -454,6 +456,9 @@ class Detections:
         return csv_path
 
     def write_all_to_s3(self, IMAGE_FOLDER, CSV_FOLDER, bucket):
+        '''
+        writes images and csvs to s3 Bucket
+        '''
 
         # Write images to s3
         full_image_paths = [os.path.join(IMAGE_FOLDER, filename) for filename in os.listdir(
