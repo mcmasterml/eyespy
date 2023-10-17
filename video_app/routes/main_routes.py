@@ -116,6 +116,17 @@ def processing():
     """
     logger.info("Processing route was hit!")
     load_dotenv()
+
+    # TODO: display loading page faster
+    # perhaps the way to do this is by
+    # having the validations occur in the next route.
+    # Alternatively, we could call render_template('loading.html')
+    # before any of the checks occur, and call the next route
+    # on the return from this route.
+    # In any case, the current state of user feedback for load
+    # is laggy, and causes users to click the get results button
+    # multiple times and all this is just buggy and needs to be fixed.
+
     try:
         # Load model using cache
         selected_model_type = session.get('MODEL')
