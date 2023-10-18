@@ -125,7 +125,7 @@ def processing():
     # on the return from this route.
     # In any case, the current state of user feedback for load
     # is laggy, and causes users to click the get results button
-    # multiple times and all this is just buggy and needs to be fixed.
+    # multiple times and all this is just buggy and needs to be fixed
 
     try:
         # Load model using cache
