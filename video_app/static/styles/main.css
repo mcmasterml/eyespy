@@ -42,17 +42,8 @@ label {
     font-family: 'Montserrat', sans-serif;
 }
 
-h3 {
-    font-weight: 400;
-}
-
 h1 {
-    font-size: 4rem;
-    font-weight: 600;
-}
-
-@media (max-width: 768px) {
-    h1 {
-        font-size: 3rem;
-    }
+    padding: 25px 0 15px 0;
+    font-size: 48px;
+    color: white;
 }
