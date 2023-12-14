@@ -55,9 +55,7 @@ temp_data/
 # Media
 *.mp4
 *.jpg
-*.png
 *.jpeg
-*.gif
 
 # model weights
 *.pt
