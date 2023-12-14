@@ -2,11 +2,9 @@
 
 ### Automating Video Detections
 
-Presenting EyeSpy, a service which takes video and returns object detection and tracking analytics.
+Presenting EyeSpy, a service which takes video (RTSP Streams, local files, youtube videos) and returns object detection and tracking analytics in the form of .csv and .jpeg files.
 
-A live deployment is freely accessible [here](https://eyespy.petermcmaster.me)
-
-Motivation for this project comes from a passion for Computer Vision models and a recognition of the current business need for automating surveillance. The idea is to feed video through an object detector (in this case, the YOLOv8 model from [ultralytics](https://github.com/ultralytics/ultralytics)) and return a dataframe and images from objects of interest (i.e. people, cars, etc.)
+This was my capstone project for the [UC San Diego Machine Learning Engineering Bootcamp](https://www.credential.net/93c5116a-4f9f-4193-b703-c2ae38ddb30b) Motivation for this project comes from a passion for Computer Vision models and a recognition of the current business need for automating surveillance. The idea is to feed video through an object detector (in this case, the YOLOv8 model from [ultralytics](https://github.com/ultralytics/ultralytics)) and return a dataframe and images from objects of interest (i.e. people, cars, etc.)
 
 In this way, the task of monitoring nefarious activity becomes streamlined by the creation of a tabular dataset of everything detected within the video. This allows users to search, scrub, and identify much faster than was previously possible.
 
@@ -21,6 +19,8 @@ Alternatively, you can run a local deployment by cloning this repository and fol
 5. Go to `http://127.0.0.1:8000` in a web browser
 
 # The Architecture
+
+![alt text](/assets/Eyespy_Diagram.png)
 
 ### 1. The Application
 
