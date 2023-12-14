@@ -20,7 +20,7 @@ Alternatively, you can run a local deployment by cloning this repository and fol
 
 # The Architecture
 
-![alt text](/assets/Eyespy_Diagram.png)
+![alt text](assets/Eyespy_Diagram.png)
 
 ### 1. The Application
 
